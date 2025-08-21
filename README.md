@@ -1,4 +1,4 @@
-# Lucide SVG Fetcher
+# Lucide SVG
 
 A Rust library and CLI tool for downloading SVG icons from the [Lucide](https://lucide.dev/) icon library with interactive selection and preview capabilities.
 
@@ -459,4 +459,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Search functionality
 - Batch download support
 - Error handling and progress reporting
-
