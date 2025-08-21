@@ -2,7 +2,7 @@ use anyhow::Result;
 use clap::{Parser, Subcommand};
 use console::{style, Term};
 use dialoguer::{theme::ColorfulTheme, MultiSelect, Select};
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 use std::path::{Path, PathBuf};
 
 #[derive(Parser)]

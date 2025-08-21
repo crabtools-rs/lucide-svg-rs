@@ -1,5 +1,5 @@
 [package]
-name = "lucide-svg-fetcher"
+name = "lucide-svg-rs"
 version = "0.1.0"
 edition = "2021"
 
@@ -20,6 +20,5 @@ name = "lucide-cli"
 path = "src/bin/cli.rs"
 
 [lib]
-name = "lucide_svg_fetcher"
+name = "lucide_svg_rs"
 path = "src/lib.rs"
-
