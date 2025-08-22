@@ -29,13 +29,13 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-lucide-svg-fetcher = "0.1.0"
+lucide-svg-rs = "0.1.1"
 ```
 
 Or install the CLI tool:
 
 ```bash
-cargo install lucide-svg-fetcher
+cargo install lucide-svg-rs
 ```
 
 ## Library Usage
@@ -43,7 +43,7 @@ cargo install lucide-svg-fetcher
 ### Basic Example
 
 ```rust
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 use std::path::Path;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -70,7 +70,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 ### Advanced Usage
 
 ```rust
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 use std::path::Path;
 
 // Create client with custom user agent
@@ -204,7 +204,7 @@ pub enum LucideError {
 #### Download Icons for a Web App
 
 ```rust
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 use std::path::Path;
 
 fn setup_icons_for_webapp() -> Result<(), Box<dyn std::error::Error>> {
@@ -233,7 +233,7 @@ fn setup_icons_for_webapp() -> Result<(), Box<dyn std::error::Error>> {
 #### Embed Icons in HTML
 
 ```rust
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 
 fn embed_icon_in_html(icon_name: &str) -> Result<String, Box<dyn std::error::Error>> {
     let client = LucideClient::new();
@@ -254,7 +254,7 @@ fn embed_icon_in_html(icon_name: &str) -> Result<String, Box<dyn std::error::Err
 #### Build an Icon Processing Pipeline
 
 ```rust
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 use std::path::Path;
 
 fn process_icons_for_mobile_app() -> Result<(), Box<dyn std::error::Error>> {
@@ -332,7 +332,7 @@ You can combine the library with other Rust crates for advanced processing:
 
 ```rust
 // Example with image processing (requires additional dependencies)
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 
 fn convert_svg_to_png(icon_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     let client = LucideClient::new();
@@ -353,7 +353,7 @@ fn convert_svg_to_png(icon_name: &str) -> Result<(), Box<dyn std::error::Error>>
 
 ```rust
 use actix_web::{web, App, HttpResponse, HttpServer, Result};
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 
 async fn serve_icon(path: web::Path<String>) -> Result<HttpResponse> {
     let client = LucideClient::new();
@@ -385,7 +385,7 @@ async fn main() -> std::io::Result<()> {
 For production applications, consider implementing caching:
 
 ```rust
-use lucide_svg_fetcher::LucideClient;
+use lucide_svg_rs::LucideClient;
 use std::collections::HashMap;
 use std::sync::Mutex;
 
