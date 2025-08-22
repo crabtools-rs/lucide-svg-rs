@@ -1,5 +1,5 @@
 # Lucide SVG
-
+[![Lucide SVG Rust CI](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/ci.yml)
 A Rust library and CLI tool for downloading SVG icons from the [Lucide](https://lucide.dev/) icon library with interactive selection and preview capabilities.
 
 <img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />
