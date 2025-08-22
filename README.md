@@ -2,7 +2,7 @@
 
 A Rust library and CLI tool for downloading SVG icons from the [Lucide](https://lucide.dev/) icon library with interactive selection and preview capabilities.
 
-<img  alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/610fbc23-e898-4a69-b5ea-64d542c4e213" />
+<img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />
 
 ## Features
 
