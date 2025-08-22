@@ -29,7 +29,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-lucide-svg-rs = "0.1.1"
+lucide-svg-rs = "0.1.2"
 ```
 
 Or install the CLI tool:
