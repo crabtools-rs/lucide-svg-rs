@@ -2,6 +2,11 @@
 name = "lucide-svg-rs"
 version = "0.1.0"
 edition = "2021"
+description = "A Rust library and CLI tool for downloading SVG icons from the Lucide icon library with interactive selection and preview capabilities."
+license = "MIT"
+repository = "https://github.com/soulcorrea/lucide-svg-rs"
+keywords = ["icons", "lucide", "ui", "cli"]
+categories = ["web-programming", "gui", "lucide-cli"]
 
 [dependencies]
 ureq = { version = "3.1", features = ["json"] }
