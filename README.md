@@ -23,6 +23,8 @@ A Rust library and CLI tool for downloading SVG icons from the [Lucide](https://
 - 📊 **Progress Tracking**: Download progress and statistics
 - 🎨 **Colored Output**: Beautiful terminal interface with colors and styling
 
+<img width="615" height="327" alt="CLI in Action" src="https://github.com/user-attachments/assets/ae7c86dc-db1f-4ec5-98e4-f01150636616" />
+
 ## Installation
 
 Add this to your `Cargo.toml`:
