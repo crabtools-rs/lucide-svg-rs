@@ -1,6 +1,6 @@
 [package]
 name = "lucide-svg-rs"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "A Rust library and CLI tool for downloading SVG icons from the Lucide icon library with interactive selection and preview capabilities."
 license = "MIT"
