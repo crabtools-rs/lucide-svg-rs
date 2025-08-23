@@ -18,6 +18,8 @@ pub enum LucideError {
     IconNotFound(String),
 }
 
+/// Information about the icon for the purpose of caching metadata (not the same as data caching)
+/// and speeding internal searches without downloading actual SVG data.
 #[derive(Debug, Clone)]
 pub struct IconInfo {
     pub name: String,
@@ -35,13 +37,25 @@ impl Default for LucideClient {
     }
 }
 
+pub fn get_icon_info(name: &str) -> Option<IconInfo> {
+    let icon_info = IconInfo {
+        name: String::from(name),
+        download_url: String::from(""),
+        size: 0,
+    };
+
+    Some(icon_info)
+}
+
 impl LucideClient {
+    /// Instanciate a LucideClient with the default user agent.
     pub fn new() -> Self {
         Self {
-            user_agent: "lucide-svg-fetcher/1.0".to_string(),
+            user_agent: "lucide-svg-rs/0.1".to_string(),
         }
     }
 
+    /// Instanciate a LucideClient with the provided user agent.
     pub fn with_user_agent(mut self, user_agent: String) -> Self {
         self.user_agent = user_agent;
         self

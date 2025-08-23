@@ -31,7 +31,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-lucide-svg-rs = "0.1.2"
+lucide-svg-rs = "0.1.3"
 ```
 
 Or install the CLI tool:
@@ -452,14 +452,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [Lucide](https://lucide.dev/) for providing the beautiful icon library
 - The Rust community for excellent crates like `ureq 3.1`, `clap`, and `dialoguer`
-
-## Changelog
-
-### v0.1.0
-
-- Initial release
-- Library API for downloading Lucide SVG icons
-- CLI tool with interactive selection and preview
-- Search functionality
-- Batch download support
-- Error handling and progress reporting
