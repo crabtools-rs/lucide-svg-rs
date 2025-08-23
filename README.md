@@ -1,5 +1,10 @@
 # Lucide SVG
 
+[![Rust](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/rust.yml/badge.svg)](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/rust.yml)
+[![Crates.io](https://img.shields.io/crates/v/lucide-svg-rs.svg)](https://crates.io/crates/lucide-svg-rs)
+[![Documentation](https://docs.rs/hashbrown/badge.svg)](https://docs.rs/lucide-svg-rs)
+[![Rust](https://img.shields.io/badge/rust-1.88.0%2B-blue.svg?maxAge=3600)](https://github.com/rust-lang/lucide-svg-rs)
+
 A Rust library and CLI tool for downloading SVG icons from the [Lucide](https://lucide.dev/) icon library with interactive selection and preview capabilities.
 
 <img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />
