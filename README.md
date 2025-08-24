@@ -5,7 +5,9 @@
 [![Documentation](https://docs.rs/hashbrown/badge.svg)](https://docs.rs/lucide-svg-rs)
 [![Rust](https://img.shields.io/badge/rust-1.88.0%2B-blue.svg?maxAge=3600)](https://github.com/rust-lang/lucide-svg-rs)
 
-A Rust library and CLI tool for downloading SVG icons from the [Lucide](https://lucide.dev/) icon library with interactive selection and preview capabilities.
+A Rust library and CLI tool for downloading SVG icons from the
+[Lucide](https://lucide.dev/) icon library with interactive selection and
+preview capabilities.
 
 <img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />
 
@@ -164,11 +166,17 @@ lucide-cli all --output ./all-lucide-icons
 - `new() -> Self` - Create a new client with default settings
 - `with_user_agent(user_agent: String) -> Self` - Set custom user agent
 - `list_icons() -> Result<Vec<IconInfo>, LucideError>` - Get all available icons
-- `search_icons(pattern: &str) -> Result<Vec<IconInfo>, LucideError>` - Search icons by name
-- `download_icon(icon_name: &str, output_path: &Path) -> Result<String, LucideError>` - Download single icon
-- `download_icons(icon_names: &[&str], output_dir: &Path) -> Result<HashMap<String, Result<String, LucideError>>, LucideError>` - Download multiple icons
-- `download_all_icons(output_dir: &Path) -> Result<(usize, Vec<String>), LucideError>` - Download all icons
-- `get_icon_content(icon_name: &str) -> Result<String, LucideError>` - Get SVG content as string
+- `search_icons(pattern: &str) -> Result<Vec<IconInfo>, LucideError>` - Search
+  icons by name
+- `download_icon(icon_name: &str, output_path: &Path) -> Result<String,
+LucideError>` - Download single icon
+- `download_icons(icon_names: &[&str], output_dir: &Path) ->
+Result<HashMap<String, Result<String, LucideError>>, LucideError>` - Download
+  multiple icons
+- `download_all_icons(output_dir: &Path) -> Result<(usize, Vec<String>),
+LucideError>` - Download all icons
+- `get_icon_content(icon_name: &str) -> Result<String, LucideError>` - Get SVG
+  content as string
 
 ### `IconInfo`
 
@@ -242,7 +250,8 @@ fn setup_icons_for_webapp() -> Result<(), Box<dyn std::error::Error>> {
 ```rust
 use lucide_svg_rs::LucideClient;
 
-fn embed_icon_in_html(icon_name: &str) -> Result<String, Box<dyn std::error::Error>> {
+fn embed_icon_in_html(icon_name: &str) -> Result<String, Box<dyn
+std::error::Error>> {
     let client = LucideClient::new();
     let svg_content = client.get_icon_content(icon_name)?;
 
@@ -341,7 +350,8 @@ You can combine the library with other Rust crates for advanced processing:
 // Example with image processing (requires additional dependencies)
 use lucide_svg_rs::LucideClient;
 
-fn convert_svg_to_png(icon_name: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn convert_svg_to_png(icon_name: &str) -> Result<(), Box<dyn
+std::error::Error>> {
     let client = LucideClient::new();
     let svg_content = client.get_icon_content(icon_name)?;
 
@@ -409,7 +419,8 @@ impl CachedLucideClient {
         }
     }
 
-    pub fn get_icon_cached(&self, icon_name: &str) -> Result<String, Box<dyn std::error::Error>> {
+    pub fn get_icon_cached(&self, icon_name: &str) -> Result<String, Box<dyn
+  std::error::Error>> {
         let mut cache = self.cache.lock().unwrap();
 
         if let Some(content) = cache.get(icon_name) {
@@ -451,7 +462,8 @@ for icon in icons {
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE)
+file for details.
 
 ## Acknowledgments
 
