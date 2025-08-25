@@ -1,0 +1,100 @@
+name: Release Checklist
+description: Guided checklist for preparing and validating a release of lucide-offline-cli
+title: "Release: vX.Y.Z"
+labels: ["release", "chore"]
+assignees:
+  - your-github-handle
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Target semantic version (without the leading 'v')
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: tag
+    attributes:
+      label: Release tag
+      description: Tag to push (with leading 'v')
+      placeholder: "v0.1.0"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Pre-tag checks
+
+  - type: checkboxes
+    id: pretags
+    attributes:
+      label: Before tagging
+      options:
+        - label: "All CI checks green on `main` (build/test/lint/docs)"
+        - label: "Coverage workflow succeeded and Codecov badge visible"
+        - label: "Release Please has opened/updated a release PR; CHANGELOG looks correct"
+        - label: "README badges patched (CI/Release/Codecov)"
+        - label: "Packaging secrets set (GH_PAT, HOMEBREW_TAP_REPO, SCOOP_BUCKET_REPO)"
+        - label: "Crates.io secret set (CARGO_REGISTRY_TOKEN)"
+        - label: "Run `cargo fmt --all`, `cargo clippy -D warnings`, `cargo test --all` locally"
+        - label: "Docs build locally (RUSTDOCFLAGS='-D warnings' cargo doc --no-deps)"
+        - label: "Optional: run `cargo package --locked` and `cargo publish --dry-run` locally"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Tag the release
+        Create the tag and push:
+        ```bash
+        git tag vX.Y.Z
+        git push origin vX.Y.Z
+        ```
+
+  - type: checkboxes
+    id: posttag
+    attributes:
+      label: After tagging (CI release workflow)
+      options:
+        - label: "cargo-dist artifacts attached (linux/macos x86_64, macOS arm64, windows x86_64)"
+        - label: "CHECKSUMS.sha256 generated and (optional) CHECKSUMS.sha256.asc signature"
+        - label: "SBOM (CycloneDX) attached"
+        - label: "Homebrew formula generated and attached (outpkg/homebrew)"
+        - label: "Scoop manifest generated and attached (outpkg/scoop)"
+        - label: "Auto-push to tap/bucket repos succeeded (if enabled)"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Validate packaging
+
+  - type: checkboxes
+    id: packaging
+    attributes:
+      label: Validate Homebrew / Scoop
+      options:
+        - label: "Homebrew: `brew tap yourname/tap` then `brew install yourname/tap/lucide-offline-cli`"
+        - label: "Scoop: `scoop bucket add lucide https://github.com/yourname/scoop-bucket` then `scoop install lucide-offline-cli`"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## crates.io & docs.rs
+
+  - type: checkboxes
+    id: cratesdocs
+    attributes:
+      label: Publish & docs
+      options:
+        - label: "Crate published to crates.io (Cargo Publish workflow)"
+        - label: "docs.rs shows the new version"
+        - label: "README badges up-to-date"
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / deviations
+      description: Any deviations, follow-ups, or manual steps taken
+      placeholder: "Anything noteworthy from this release"

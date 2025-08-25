@@ -1,0 +1,29 @@
+name: Publish Guard
+
+on:
+  push:
+    tags: [ 'v*.*.*' ]
+  workflow_dispatch:
+
+jobs:
+  package-and-dry-run-publish:
+    name: Cargo package + publish --dry-run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Verify package
+        run: cargo package --locked
+      - name: Dry-run publish
+        run: cargo publish --dry-run
+
+  docsrs-sim:
+    name: docs.rs build (warnings as errors)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+      - name: Build docs like docs.rs
+        env:
+          RUSTDOCFLAGS: "--cfg docsrs -D warnings"
+        run: cargo doc --no-deps

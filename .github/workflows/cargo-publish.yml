@@ -1,0 +1,17 @@
+name: Cargo Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    if: github.repository_owner == 'soulcorrea'  # replace OWNER with your GitHub username/org
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Login to crates.io
+        run: cargo login ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - name: Publish to crates.io
+        run: cargo publish --locked

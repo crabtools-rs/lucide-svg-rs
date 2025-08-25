@@ -1,0 +1,28 @@
+# Rust / Cargo
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+tmp/
+dist/
+
+# Nix
+/result
+/nix
+.direnv
+.envrc
+.env
+
+# Node (if used alongside)
+node_modules/
