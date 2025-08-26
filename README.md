@@ -11,7 +11,7 @@
 [![codecov](https://codecov.io/gh/soulcorrea/lucide-svg-rs/branch/main/graph/badge.svg)](https://codecov.io/gh/soulcorrea/lucide-svg-rs)
 
 lucide-svg-rs is a Rust library + command-line tool for working with
-[Lucide](https://lucide.dev) SVG icons **offline**.  
+[Lucide](https://lucide.dev) SVG icons **offline**.
 All icons are shipped in a local `icons/` directory — no network access required.
 
 <img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />
@@ -85,19 +85,10 @@ For a comprehensive reference covering:
 - Examples & doctests
 - CI/CD workflows
 - Release automation (checksums, GPG signing, SBOM)
-- Packaging (Homebrew, Scoop)
 - Reproducible builds (Nix flake)
 - Portable usage (Docker)
 
 👉 see [GUIDE.md](GUIDE.md).
-
----
-
-## 📦 Packaging Guide
-
-For end-to-end distribution (Homebrew & Scoop automation, secrets, troubleshooting), see [PACKAGING_GUIDE.md](PACKAGING_GUIDE.md).
-
----
 
 ## 🤝 Contributing
 
@@ -161,7 +152,7 @@ git push origin v0.1.0
 
 ## 🚀 Releases
 
-Maintainers: use the **Release Checklist** issue form to guide each release.  
+Maintainers: use the **Release Checklist** issue form to guide each release.
 Tag format: `vX.Y.Z` (e.g., `v0.1.0`).
 
 - Open a new issue → **Release Checklist**

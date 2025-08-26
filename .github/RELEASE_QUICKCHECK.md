@@ -4,15 +4,15 @@
 - ✅ All CI green (build, fmt, clippy, test, docs)
 - ✅ Coverage uploaded (Codecov badge updated)
 - ✅ Release Please PR merged, CHANGELOG looks correct
-- ✅ Secrets set:  
-  - `CARGO_REGISTRY_TOKEN` (crates.io)  
-  - *(optional)* `GH_PAT`, `HOMEBREW_TAP_REPO`, `SCOOP_BUCKET_REPO`  
+- ✅ Secrets set:
+  - `CARGO_REGISTRY_TOKEN` (crates.io)
+  - *(optional)* `GH_PAT`, `HOMEBREW_TAP_REPO`, `SCOOP_BUCKET_REPO`
   - *(optional)* `CODECOV_TOKEN`, `CODECOV_BADGE_TOKEN`
-- ✅ Local checks:  
-  - `cargo fmt --all`  
-  - `cargo clippy -D warnings`  
-  - `cargo test --all`  
-  - `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`  
+- ✅ Local checks:
+  - `cargo fmt --all`
+  - `cargo clippy -D warnings`
+  - `cargo test --all`
+  - `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps`
   - `cargo package --locked && cargo publish --dry-run`
 
 **Tagging**
