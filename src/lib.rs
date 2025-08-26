@@ -120,8 +120,7 @@ pub fn run_cli(cli: Cli) -> Result<String, Box<dyn Error>> {
                 client.list_icons_json()?
             } else {
                 let icons = client.list_icons()?;
-                println!("Found {} icons", icons.len());
-                format!("{icons:?}")
+                format!("Found {}\n{icons:?}", icons.len())
             }
         }
         Commands::Search { query, json } => {
@@ -129,8 +128,7 @@ pub fn run_cli(cli: Cli) -> Result<String, Box<dyn Error>> {
                 client.search_icons_json(&query)?
             } else {
                 let matches = client.search_icons(&query)?;
-                println!("Found {} matches", matches.len());
-                format!("{matches:?}")
+                format!("Found {}\n{matches:?}", matches.len())
             }
         }
         Commands::DownloadAll { out } => {
