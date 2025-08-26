@@ -2,6 +2,7 @@
 /target/
 **/*.rs.bk
 Cargo.lock
+bun.lockb
 
 # IDEs
 .idea/
@@ -26,3 +27,7 @@ dist/
 
 # Node (if used alongside)
 node_modules/
+
+# Other
+coverage/
+package.json
