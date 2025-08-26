@@ -1,4 +1,4 @@
-class LucideOfflineCli < Formula
+class LucideSvgRs < Formula
   desc 'Offline Lucide icons CLI and library'
   homepage 'https://github.com/soulcorrea/lucide-svg-rs'
   version '<VERSION>'
