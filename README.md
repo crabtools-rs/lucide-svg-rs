@@ -8,7 +8,7 @@
 [![Release](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/release.yml/badge.svg)](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/release.yml)
 [![Crates.io](https://img.shields.io/crates/v/lucide-svg-rs.svg)](https://crates.io/crates/lucide-svg-rs)
 [![Docs.rs](https://docs.rs/lucide-svg-rs/badge.svg)](https://docs.rs/lucide-svg-rs)
-[![codecov](https://codecov.io/gh/soulcorrea/lucide-svg-rs/branch/main/graph/badge.svg?token=YOURTOKEN)](https://codecov.io/gh/soulcorrea/lucide-svg-rs)
+[![codecov](https://codecov.io/gh/soulcorrea/lucide-svg-rs/branch/main/graph/badge.svg)](https://codecov.io/gh/soulcorrea/lucide-svg-rs)
 
 lucide-svg-rs is a Rust library + command-line tool for working with
 [Lucide](https://lucide.dev) SVG icons **offline**.  
