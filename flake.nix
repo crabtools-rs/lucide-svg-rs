@@ -1,5 +1,5 @@
 {
-  description = "lucide-offline-cli: offline Lucide icons CLI (file-based) with dev shell and CI builds";
+  description = "lucide-svg-rs: offline Lucide icons CLI (file-based) with dev shell and CI builds";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -16,7 +16,7 @@
       in
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
-          pname = "lucide-offline-cli";
+          pname = "lucide-svg-rs";
           version = "0.1.0";
           src = ./.;
           cargoLock = { lockFile = ./Cargo.lock; };

@@ -1,4 +1,4 @@
-# Lucide Offline CLI — Comprehensive Guide
+# Lucide SVG Rust — Comprehensive Guide
 
 This guide walks through building, testing, packaging, and distributing the **Lucide Offline CLI** and library. It integrates all directions covered in development, from unit testing to CI/CD workflows.
 
@@ -6,7 +6,7 @@ This guide walks through building, testing, packaging, and distributing the **Lu
 
 ## 📂 Project Overview
 
-- **`lucide_offline_cli`**: Rust library + CLI for Lucide SVG icons
+- **`lucide_svg_rs`**: Rust library + CLI for Lucide SVG icons
 - **File-based only**: ships with `icons/` directory, no network calls
 - **Features**:
   - `list` all icons (plain text / JSON)
@@ -24,7 +24,7 @@ This guide walks through building, testing, packaging, and distributing the **Lu
 ## 🛠 Library Usage
 
 ```rust
-use lucide_offline_cli::{LucideClient, ICONS_DIR};
+use lucide_svg_rs::{LucideClient, ICONS_DIR};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = LucideClient::new(ICONS_DIR)?;
@@ -75,6 +75,7 @@ cargo test --test cli
 ```
 
 Covers:
+
 - Defaulting to `ICONS_DIR`
 - Search functionality
 - Download/export functionality
@@ -96,16 +97,19 @@ assert!(!parsed.is_empty());
 ## 📖 Examples
 
 ### List
+
 ```bash
 cargo run --example list
 ```
 
 ### Search
+
 ```bash
 cargo run --example search
 ```
 
 ### Download All
+
 ```bash
 cargo run --example download_all ./exported-icons
 ```
@@ -118,14 +122,14 @@ Examples explicitly show defaulting to `ICONS_DIR`.
 
 Library doctests ensure docs compile + run:
 
-```rust
+````rust
 /// ```
-/// use lucide_offline_cli::{LucideClient, ICONS_DIR};
+/// use lucide_svg_rs::{LucideClient, ICONS_DIR};
 /// let client = LucideClient::new(ICONS_DIR).unwrap();
 /// let icons = client.list_icons().unwrap();
 /// assert!(!icons.is_empty());
 /// ```
-```
+````
 
 Run:
 
@@ -153,17 +157,20 @@ cargo test --doc
 **`.github/workflows/release.yml`** runs on tag `v*.*.*`.
 
 Builds:
+
 - Linux x86_64
 - macOS x86_64 + arm64
 - Windows x86_64
 
 Artifacts:
+
 - Zipped binaries + README/LICENSE
 - `CHECKSUMS.sha256` (+ `.asc` if GPG enabled)
 - `SBOM.cdx.json` (CycloneDX)
 - Auto-generated Homebrew & Scoop packaging files
 
 Optional auto-push to your tap/bucket if secrets set:
+
 - `GH_PAT`
 - `HOMEBREW_TAP_REPO`
 - `SCOOP_BUCKET_REPO`
@@ -185,7 +192,7 @@ Example tap:
 
 ```bash
 brew tap yourname/tap https://github.com/yourname/homebrew-tap
-brew install yourname/tap/lucide-offline-cli
+brew install soulcorrea/tap/lucide-svg-rs
 ```
 
 ---
@@ -197,8 +204,8 @@ Manifest generated at release time.
 Install via bucket:
 
 ```bash
-scoop bucket add lucide https://github.com/yourname/scoop-bucket
-scoop install lucide-offline-cli
+scoop bucket add lucide https://github.com/soulcorrea/scoop-bucket
+scoop install lucide-svg-rs
 ```
 
 ---
@@ -227,7 +234,7 @@ Includes Rust toolchain, `cargo`, `clippy`, `rustfmt`, `rust-analyzer`.
 
 ```bash
 nix build
-./result/bin/lucide-offline-cli list
+./result/bin/lucide-svg-rs list
 ```
 
 > Run `nix build` once to obtain `cargoHash` if needed.
@@ -241,21 +248,21 @@ Multi-stage build with minimal runtime image.
 ### Build Image
 
 ```bash
-docker build -t lucide-offline-cli .
+docker build -t lucide-svg-rs .
 ```
 
 ### Run CLI
 
 ```bash
-docker run --rm lucide-offline-cli list
-docker run --rm lucide-offline-cli search alert
+docker run --rm lucide-svg-rs list
+docker run --rm lucide-svg-rs search alert
 ```
 
 ### Export Icons
 
 ```bash
 mkdir -p ./out
-docker run --rm -v $(pwd)/out:/out lucide-offline-cli download-all /out
+docker run --rm -v $(pwd)/out:/out lucide-svg-rs download-all /out
 ```
 
 ---
@@ -263,6 +270,7 @@ docker run --rm -v $(pwd)/out:/out lucide-offline-cli download-all /out
 # 🎯 Conclusion
 
 With this setup you now have:
+
 - Fully offline Lucide client + CLI
 - Automated testing, docs, examples
 - CI and release workflows

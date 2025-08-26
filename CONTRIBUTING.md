@@ -1,4 +1,4 @@
-# Contributing to lucide-offline-cli
+# Contributing to lucide-svg-rs
 
 Thanks for helping make this better!
 
@@ -22,10 +22,12 @@ Thanks for helping make this better!
 ## Versioning & Releases
 
 We follow **Conventional Commits** and use **Release Please**:
+
 - Use types like `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`, etc.
 - Release Please will open a release PR that bumps versions and updates `CHANGELOG.md`.
 - Merging that PR will create a GitHub Release and tag (e.g., `v0.1.1`).
 
 Examples:
+
 - `feat(cli): add --json output to search`
 - `fix(client): trim whitespace before matching icon names`

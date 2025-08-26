@@ -1,6 +1,6 @@
 # Packaging Guide
 
-This document explains how the **Homebrew tap** and **Scoop bucket** tie into the release workflow for `lucide-offline-cli`.
+This document explains how the **Homebrew tap** and **Scoop bucket** tie into the release workflow for `lucide-svg-rs`.
 
 ---
 
@@ -8,8 +8,8 @@ This document explains how the **Homebrew tap** and **Scoop bucket** tie into th
 
 The release workflow automatically generates and distributes packaging files for:
 
-- **Homebrew (macOS/Linux)** → formula (`lucide-offline-cli.rb`) committed to your `homebrew-tap` repo
-- **Scoop (Windows)** → manifest (`lucide-offline-cli.json`) committed to your `scoop-bucket` repo
+- **Homebrew (macOS/Linux)** → formula (`lucide-svg-rs.rb`) committed to your `homebrew-tap` repo
+- **Scoop (Windows)** → manifest (`lucide-svg-rs.json`) committed to your `scoop-bucket` repo
 
 This ensures that whenever you tag a release (e.g. `v0.2.0`), users on macOS/Linux/Windows can install or upgrade via `brew` or `scoop` without you manually updating these repos.
 
@@ -18,6 +18,7 @@ This ensures that whenever you tag a release (e.g. `v0.2.0`), users on macOS/Lin
 ## 🔄 How It Works
 
 1. **Tag a Release**
+
    ```bash
    git tag v0.2.0
    git push origin v0.2.0
@@ -27,14 +28,14 @@ This ensures that whenever you tag a release (e.g. `v0.2.0`), users on macOS/Lin
    - Builds binaries with `cargo-dist`
    - Computes SHA256 checksums
    - Generates:
-     - `outpkg/homebrew/lucide-offline-cli.rb`
-     - `outpkg/scoop/lucide-offline-cli.json`
+     - `outpkg/homebrew/lucide-svg-rs.rb`
+     - `outpkg/scoop/lucide-svg-rs.json`
    - Attaches these files to the GitHub Release
    - (Optional) Pushes them to your tap/bucket repos
 
 3. **Users install/upgrade** using standard tools:
-   - `brew install yourname/tap/lucide-offline-cli`
-   - `scoop install lucide-offline-cli`
+   - `brew install yourname/tap/lucide-svg-rs`
+   - `scoop install lucide-svg-rs`
 
 ---
 
@@ -50,7 +51,7 @@ Users can now:
 
 ```bash
 brew tap yourname/tap https://github.com/yourname/homebrew-tap
-brew install yourname/tap/lucide-offline-cli
+brew install yourname/tap/lucide-svg-rs
 ```
 
 ---
@@ -67,14 +68,14 @@ Users can now:
 
 ```powershell
 scoop bucket add lucide https://github.com/yourname/scoop-bucket
-scoop install lucide-offline-cli
+scoop install lucide-svg-rs
 ```
 
 ---
 
 ## 🔐 Required Secrets
 
-In your main repo (`lucide-offline-cli`), set these secrets:
+In your main repo (`lucide-svg-rs`), set these secrets:
 
 - `GH_PAT` — a Personal Access Token with `repo` scope (used to push to other repos)
 - `HOMEBREW_TAP_REPO` — e.g. `yourname/homebrew-tap`

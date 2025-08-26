@@ -10,8 +10,8 @@ RUN cargo build --release
 # ---- Runtime stage ----
 FROM debian:bullseye-slim
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /app/target/release/lucide-offline-cli /usr/local/bin/lucide-offline-cli
-COPY icons /usr/local/share/lucide-offline-cli/icons
-ENV LUCIDE_ICONS_DIR=/usr/local/share/lucide-offline-cli/icons
-ENTRYPOINT ["lucide-offline-cli"]
+COPY --from=builder /app/target/release/lucide-svg-rs /usr/local/bin/lucide-svg-rs
+COPY icons /usr/local/share/lucide-svg-rs/icons
+ENV LUCIDE_ICONS_DIR=/usr/local/share/lucide-svg-rs/icons
+ENTRYPOINT ["lucide-svg-rs"]
 CMD ["list"]
