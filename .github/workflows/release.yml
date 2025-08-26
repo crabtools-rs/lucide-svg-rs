@@ -133,8 +133,8 @@ jobs:
 
           mkdir -p outpkg/homebrew outpkg/scoop
 
-          cat > outpkg/homebrew/lucide-offline-cli.rb <<'RUBY'
-class LucideOfflineCli < Formula
+          cat > outpkg/homebrew/lucide-svg-rs.rb <<'RUBY'
+class LucideSvgRs < Formula
   desc "Offline Lucide icons CLI and library"
   homepage "https://github.com/soulcorrea/lucide-svg-rs"
   version "VERSION"
