@@ -47,19 +47,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ```bash
 # List icons
-lucide-cli list
+lucide-svg-rs list
 
 # List icons as JSON
-lucide-cli list --json
+lucide-svg-rs list --json
 
 # Search icons
-lucide-cli search alert
+lucide-svg-rs search alert
 
 # Search as JSON
-lucide-cli search alert --json
+lucide-svg-rs search alert --json
 
 # Download/export all icons
-lucide-cli download-all ./out
+lucide-svg-rs download-all ./out
 ```
 
 ---

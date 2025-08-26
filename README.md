@@ -41,21 +41,21 @@ target/release/lucide-svg-rs
 ### List icons
 
 ```bash
-lucide-cli list
-lucide-cli list --json
+lucide-svg-rs list
+lucide-svg-rs list --json
 ```
 
 ### Search icons
 
 ```bash
-lucide-cli search alert
-lucide-cli search alert --json
+lucide-svg-rs search alert
+lucide-svg-rs search alert --json
 ```
 
 ### Export icons
 
 ```bash
-lucide-cli download-all ./out
+lucide-svg-rs download-all ./out
 ```
 
 ---
