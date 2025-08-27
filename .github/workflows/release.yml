@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 permissions:
   contents: write
@@ -110,87 +110,78 @@ jobs:
           gpg --batch --yes --armor --detach-sign --output CHECKSUMS.sha256.asc CHECKSUMS.sha256
           ls -l CHECKSUMS.sha256.asc
 
-      - name: Generate Homebrew & Scoop files
+      - name: Generate Homebrew formula
         shell: bash
         run: |
           set -euo pipefail
-          OWNER="${GITHUB_REPOSITORY%/*}"
-          REPO="${GITHUB_REPOSITORY#*/}"
           VERSION="${{ needs.plan.outputs.version }}"
-          TAG="${{ needs.plan.outputs.tag }}"
 
           LINUX_ZIP=$(ls dist/*linux*.* 2>/dev/null | head -n1 || true)
           MAC_X86_ZIP=$(ls dist/*darwin*x86_64*.* 2>/dev/null | head -n1 || true)
           MAC_ARM_ZIP=$(ls dist/*darwin*aarch64*.* 2>/dev/null | head -n1 || true)
-          WIN_ZIP=$(ls dist/*windows*x86_64*.* 2>/dev/null | head -n1 || true)
 
           sha_or_empty () { test -f "$1" && sha256sum "$1" | cut -d' ' -f1 || echo ""; }
 
           LINUX_SHA=$(sha_or_empty "${LINUX_ZIP:-}")
           MAC_X86_SHA=$(sha_or_empty "${MAC_X86_ZIP:-}")
           MAC_ARM_SHA=$(sha_or_empty "${MAC_ARM_ZIP:-}")
+
+          mkdir -p outpkg/homebrew
+
+          echo 'class LucideSvgRs < Formula' > outpkg/homebrew/lucide-svg-rs.rb
+          echo '  desc "Offline Lucide icons CLI and library"' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  homepage "https://github.com/soulcorrea/lucide-svg-rs"' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "  version \"${VERSION}\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  on_macos do' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '    if Hardware::CPU.arm?' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "      url \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-macos-aarch64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "      sha256 \"${MAC_ARM_SHA}\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '    else' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "      url \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-macos-x86_64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "      sha256 \"${MAC_X86_SHA}\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '    end' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  end' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  on_linux do' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "    url \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-linux-x86_64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "    sha256 \"${LINUX_SHA}\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  end' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  def install' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '    bin.install "lucide-svg-rs"' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  end' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  test do' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '    system "#{bin}/lucide-svg-rs", "list"' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  end' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo 'end' >> outpkg/homebrew/lucide-svg-rs.rb
+
+      - name: Generate Scoop manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="${{ needs.plan.outputs.version }}"
+
+          WIN_ZIP=$(ls dist/*windows*x86_64*.* 2>/dev/null | head -n1 || true)
+          sha_or_empty () { test -f "$1" && sha256sum "$1" | cut -d' ' -f1 || echo ""; }
           WIN_SHA=$(sha_or_empty "${WIN_ZIP:-}")
 
-          mkdir -p outpkg/homebrew outpkg/scoop
+          mkdir -p outpkg/scoop
 
-          cat > outpkg/homebrew/lucide-svg-rs.rb <<'RUBY'
-class LucideSvgHandler < Formula
-  desc "Offline Lucide icons CLI and library"
-  homepage "https://github.com/soulcorrea/lucide-svg-rs"
-  version "VERSION"
-
-  on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/soulcorrea/lucide-svg-rs/releases/download/vVERSION/lucide-offline-cli-macos-aarch64.zip"
-      sha256 "SHA256_MAC_ARM64"
-    else
-      url "https://github.com/soulcorrea/lucide-svg-rs/releases/download/vVERSION/lucide-offline-cli-macos-x86_64.zip"
-      sha256 "SHA256_MAC_X86_64"
-    end
-  end
-
-  on_linux do
-    url "https://github.com/soulcorrea/lucide-svg-rs/releases/download/vVERSION/lucide-offline-cli-linux-x86_64.zip"
-    sha256 "SHA256_LINUX_X86_64"
-  end
-
-  def install
-    bin.install "lucide-offline-cli"
-  end
-
-  test do
-    system "#{bin}/lucide-offline-cli", "list"
-  end
-end
-RUBY
-
-          sed -i "s/OWNER/${OWNER}/g" outpkg/homebrew/lucide-offline-cli.rb
-          sed -i "s/REPO/${REPO}/g" outpkg/homebrew/lucide-offline-cli.rb
-          sed -i "s/VERSION/${VERSION}/g" outpkg/homebrew/lucide-offline-cli.rb
-          sed -i "s/SHA256_MAC_ARM64/${MAC_ARM_SHA}/g" outpkg/homebrew/lucide-offline-cli.rb
-          sed -i "s/SHA256_MAC_X86_64/${MAC_X86_SHA}/g" outpkg/homebrew/lucide-offline-cli.rb
-          sed -i "s/SHA256_LINUX_X86_64/${LINUX_SHA}/g" outpkg/homebrew/lucide-offline-cli.rb
-
-          cat > outpkg/scoop/lucide-offline-cli.json <<'JSON'
-{
-  "version": "VERSION",
-  "description": "Offline Lucide icons CLI and library",
-  "homepage": "https://github.com/soulcorrea/lucide-svg-rs",
-  "license": "MIT OR Apache-2.0",
-  "architecture": {
-    "64bit": {
-      "url": "https://github.com/soulcorrea/lucide-svg-rs/releases/download/vVERSION/lucide-offline-cli-windows-x86_64.zip",
-      "hash": "SHA256_WINDOWS_X86_64",
-      "bin": [ "lucide-offline-cli.exe" ]
-    }
-  }
-}
-JSON
-
-          sed -i "s/OWNER/${OWNER}/g" outpkg/scoop/lucide-offline-cli.json
-          sed -i "s/REPO/${REPO}/g" outpkg/scoop/lucide-offline-cli.json
-          sed -i "s/VERSION/${VERSION}/g" outpkg/scoop/lucide-offline-cli.json
-          sed -i "s/SHA256_WINDOWS_X86_64/${WIN_SHA}/g" outpkg/scoop/lucide-offline-cli.json
+          echo '{' > outpkg/scoop/lucide-svg-rs.json
+          echo "  \"version\": \"${VERSION}\"," >> outpkg/scoop/lucide-svg-rs.json
+          echo '  "description": "Offline Lucide icons CLI and library",' >> outpkg/scoop/lucide-svg-rs.json
+          echo '  "homepage": "https://github.com/soulcorrea/lucide-svg-rs",' >> outpkg/scoop/lucide-svg-rs.json
+          echo '  "license": "MIT OR Apache-2.0",' >> outpkg/scoop/lucide-svg-rs.json
+          echo '  "architecture": {' >> outpkg/scoop/lucide-svg-rs.json
+          echo '    "64bit": {' >> outpkg/scoop/lucide-svg-rs.json
+          echo "      \"url\": \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-windows-x86_64.zip\"," >> outpkg/scoop/lucide-svg-rs.json
+          echo "      \"hash\": \"${WIN_SHA}\"," >> outpkg/scoop/lucide-svg-rs.json
+          echo '      "bin": [ "lucide-svg-rs.exe" ]' >> outpkg/scoop/lucide-svg-rs.json
+          echo '    }' >> outpkg/scoop/lucide-svg-rs.json
+          echo '  }' >> outpkg/scoop/lucide-svg-rs.json
+          echo '}' >> outpkg/scoop/lucide-svg-rs.json
 
           echo "Generated packaging files:"
           ls -l outpkg/homebrew outpkg/scoop || true
@@ -204,10 +195,10 @@ JSON
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone "https://${{ secrets.GH_PAT }}@github.com/${{ secrets.HOMEBREW_TAP_REPO }}.git" taprepo
           mkdir -p taprepo/Formula
-          cp outpkg/homebrew/lucide-offline-cli.rb taprepo/Formula/lucide-offline-cli.rb
+          cp outpkg/homebrew/lucide-svg-rs.rb taprepo/Formula/lucide-svg-rs.rb
           cd taprepo
-          git add Formula/lucide-offline-cli.rb
-          git commit -m "Update lucide-offline-cli formula to ${{ needs.plan.outputs.tag }}"
+          git add Formula/lucide-svg-rs.rb
+          git commit -m "Update lucide-svg-rs formula to ${{ needs.plan.outputs.tag }}"
           git push
 
       - name: Auto-push Scoop manifest (optional)
@@ -219,10 +210,10 @@ JSON
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone "https://${{ secrets.GH_PAT }}@github.com/${{ secrets.SCOOP_BUCKET_REPO }}.git" scooprepo
           mkdir -p scooprepo/bucket
-          cp outpkg/scoop/lucide-offline-cli.json scooprepo/bucket/lucide-offline-cli.json
+          cp outpkg/scoop/lucide-svg-rs.json scooprepo/bucket/lucide-svg-rs.json
           cd scooprepo
-          git add bucket/lucide-offline-cli.json
-          git commit -m "Update lucide-offline-cli manifest to ${{ needs.plan.outputs.tag }}"
+          git add bucket/lucide-svg-rs.json
+          git commit -m "Update lucide-svg-rs manifest to ${{ needs.plan.outputs.tag }}"
           git push
 
       - name: Create GitHub Release

@@ -1,5 +1,5 @@
 name: Release Checklist
-description: Guided checklist for preparing and validating a release of lucide-offline-cli
+description: Guided checklist for preparing and validating a release of lucide-svg-rs
 title: "Release: vX.Y.Z"
 labels: ["release", "chore"]
 assignees:
@@ -75,8 +75,8 @@ body:
     attributes:
       label: Validate Homebrew / Scoop
       options:
-        - label: "Homebrew: `brew tap yourname/tap` then `brew install yourname/tap/lucide-offline-cli`"
-        - label: "Scoop: `scoop bucket add lucide https://github.com/yourname/scoop-bucket` then `scoop install lucide-offline-cli`"
+        - label: "Homebrew: `brew tap yourname/tap` then `brew install yourname/tap/lucide-svg-rs`"
+        - label: "Scoop: `scoop bucket add lucide https://github.com/yourname/scoop-bucket` then `scoop install lucide-svg-rs`"
 
   - type: markdown
     attributes:

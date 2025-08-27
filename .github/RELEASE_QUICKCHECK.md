@@ -29,5 +29,5 @@ git push origin vX.Y.Z
 - ✅ docs.rs updated for new version
 
 **Packaging validation**
-- 🍺 Homebrew: `brew install yourname/tap/lucide-offline-cli`
-- 🪣 Scoop: `scoop install lucide-offline-cli`
+- 🍺 Homebrew: `brew install yourname/tap/lucide-svg-rs`
+- 🪣 Scoop: `scoop install lucide-svg-rs`

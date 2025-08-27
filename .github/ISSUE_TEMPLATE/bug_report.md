@@ -22,7 +22,7 @@ If applicable, add screenshots or logs to help explain your problem.
 **Environment (please complete the following information):**
 - OS: [e.g. macOS 14, Ubuntu 22.04, Windows 11]
 - Rust: `rustc -V`
-- CLI version: `lucide-cli --version` (if applicable)
+- CLI version: `lucide-svg-rs --version` (if applicable)
 
 **Additional context**
 Add any other context about the problem here.

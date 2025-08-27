@@ -81,7 +81,7 @@ impl LucideClient {
 
 /// CLI parser
 #[derive(Parser, Debug)]
-#[command(name = "lucide-cli")]
+#[command(name = "lucide-svg-rs")]
 #[command(about = "Work with Lucide icons from a local directory", long_about = None)]
 pub struct Cli {
     /// Path to local SVG directory (defaults to built-in icons)
