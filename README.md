@@ -4,14 +4,14 @@
 
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
 [![License: MIT/Apache-2.0](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
-[![CI](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/ci.yml)
-[![Release](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/release.yml/badge.svg)](https://github.com/soulcorrea/lucide-svg-rs/actions/workflows/release.yml)
+[![CI](https://github.com/crabtools-rs/lucide-svg-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/crabtools-rs/lucide-svg-rs/actions/workflows/ci.yml)
+[![Release](https://github.com/crabtools-rs/lucide-svg-rs/actions/workflows/release.yml/badge.svg)](https://github.com/crabtools-rs/lucide-svg-rs/actions/workflows/release.yml)
 [![Crates.io](https://img.shields.io/crates/v/lucide-svg-rs.svg)](https://crates.io/crates/lucide-svg-rs)
 [![Docs.rs](https://docs.rs/lucide-svg-rs/badge.svg)](https://docs.rs/lucide-svg-rs)
-[![codecov](https://codecov.io/gh/soulcorrea/lucide-svg-rs/branch/main/graph/badge.svg)](https://codecov.io/gh/soulcorrea/lucide-svg-rs)
+[![codecov](https://codecov.io/gh/crabtools-rs/lucide-svg-rs/branch/main/graph/badge.svg)](https://codecov.io/gh/crabtools-rs/lucide-svg-rs)
 
 lucide-svg-rs is a Rust library + command-line tool for working with
-[Lucide](https://lucide.dev) SVG icons **offline**.
+[Lucide](https://lucide.dev) SVG icons both online and **offline**.
 All icons are shipped in a local `icons/` directory — no network access required.
 
 <img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />

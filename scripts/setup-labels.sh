@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Requires GitHub CLI: https://cli.github.com/
-# Usage: ./scripts/setup-labels.sh soulcorrea/lucide-svg-rs
+# Usage: ./scripts/setup-labels.sh crabtools-rs/lucide-svg-rs
 
 set -euo pipefail
 REPO="${1:-}"
 if [[ -z "$REPO" ]]; then
-  echo "Usage: $0 soulcorrea/lucide-svg-rs"
+  echo "Usage: $0 crabtools-rs/lucide-svg-rs"
   exit 1
 fi
 

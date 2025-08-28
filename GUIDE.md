@@ -192,7 +192,7 @@ Example tap:
 
 ```bash
 brew tap yourname/tap https://github.com/yourname/homebrew-tap
-brew install soulcorrea/tap/lucide-svg-rs
+brew install crabtools-rs/tap/lucide-svg-rs
 ```
 
 ---
@@ -204,7 +204,7 @@ Manifest generated at release time.
 Install via bucket:
 
 ```bash
-scoop bucket add lucide https://github.com/soulcorrea/scoop-bucket
+scoop bucket add lucide https://github.com/crabtools-rs/scoop-bucket
 scoop install lucide-svg-rs
 ```
 

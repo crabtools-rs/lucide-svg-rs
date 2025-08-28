@@ -1,10 +1,10 @@
 {
   "version": "<VERSION>",
-  "homepage": "https://github.com/soulcorrea/lucide-svg-rs",
+  "homepage": "https://github.com/crabtools-rs/lucide-svg-rs",
   "license": "MIT OR Apache-2.0",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/soulcorrea/lucide-svg-rs/releases/download/v<VERSION>/lucide-svg-rs-windows-x86_64.zip",
+      "url": "https://github.com/crabtools-rs/lucide-svg-rs/releases/download/v<VERSION>/lucide-svg-rs-windows-x86_64.zip",
       "hash": "<SHA256>",
       "bin": ["lucide-svg-rs.exe"]
     }

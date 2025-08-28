@@ -95,7 +95,7 @@ jobs:
           cat CHECKSUMS.sha256
 
       - name: Import GPG key (optional)
-        if: secrets.GPG_PRIVATE_KEY != ''
+        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -104,7 +104,7 @@ jobs:
           git_commit_gpgsign: true
 
       - name: Sign checksums with GPG (optional)
-        if: secrets.GPG_PRIVATE_KEY != ''
+        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
         run: |
           cd dist
           gpg --batch --yes --armor --detach-sign --output CHECKSUMS.sha256.asc CHECKSUMS.sha256
@@ -129,22 +129,22 @@ jobs:
           mkdir -p outpkg/homebrew
 
           echo 'class LucideSvgRs < Formula' > outpkg/homebrew/lucide-svg-rs.rb
-          echo '  desc "Offline Lucide icons CLI and library"' >> outpkg/homebrew/lucide-svg-rs.rb
-          echo '  homepage "https://github.com/soulcorrea/lucide-svg-rs"' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  desc "Lucide SVG Icons CLI and library"' >> outpkg/homebrew/lucide-svg-rs.rb
+          echo '  homepage "https://github.com/crabtools-rs/lucide-svg-rs"' >> outpkg/homebrew/lucide-svg-rs.rb
           echo "  version \"${VERSION}\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo '' >> outpkg/homebrew/lucide-svg-rs.rb
           echo '  on_macos do' >> outpkg/homebrew/lucide-svg-rs.rb
           echo '    if Hardware::CPU.arm?' >> outpkg/homebrew/lucide-svg-rs.rb
-          echo "      url \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-macos-aarch64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "      url \"https://github.com/crabtools-rs/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-macos-aarch64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo "      sha256 \"${MAC_ARM_SHA}\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo '    else' >> outpkg/homebrew/lucide-svg-rs.rb
-          echo "      url \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-macos-x86_64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "      url \"https://github.com/crabtools-rs/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-macos-x86_64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo "      sha256 \"${MAC_X86_SHA}\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo '    end' >> outpkg/homebrew/lucide-svg-rs.rb
           echo '  end' >> outpkg/homebrew/lucide-svg-rs.rb
           echo '' >> outpkg/homebrew/lucide-svg-rs.rb
           echo '  on_linux do' >> outpkg/homebrew/lucide-svg-rs.rb
-          echo "    url \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-linux-x86_64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
+          echo "    url \"https://github.com/crabtools-rs/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-linux-x86_64.zip\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo "    sha256 \"${LINUX_SHA}\"" >> outpkg/homebrew/lucide-svg-rs.rb
           echo '  end' >> outpkg/homebrew/lucide-svg-rs.rb
           echo '' >> outpkg/homebrew/lucide-svg-rs.rb
@@ -172,11 +172,11 @@ jobs:
           echo '{' > outpkg/scoop/lucide-svg-rs.json
           echo "  \"version\": \"${VERSION}\"," >> outpkg/scoop/lucide-svg-rs.json
           echo '  "description": "Offline Lucide icons CLI and library",' >> outpkg/scoop/lucide-svg-rs.json
-          echo '  "homepage": "https://github.com/soulcorrea/lucide-svg-rs",' >> outpkg/scoop/lucide-svg-rs.json
+          echo '  "homepage": "https://github.com/crabtools-rs/lucide-svg-rs",' >> outpkg/scoop/lucide-svg-rs.json
           echo '  "license": "MIT OR Apache-2.0",' >> outpkg/scoop/lucide-svg-rs.json
           echo '  "architecture": {' >> outpkg/scoop/lucide-svg-rs.json
           echo '    "64bit": {' >> outpkg/scoop/lucide-svg-rs.json
-          echo "      \"url\": \"https://github.com/soulcorrea/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-windows-x86_64.zip\"," >> outpkg/scoop/lucide-svg-rs.json
+          echo "      \"url\": \"https://github.com/crabtools-rs/lucide-svg-rs/releases/download/v${VERSION}/lucide-svg-rs-windows-x86_64.zip\"," >> outpkg/scoop/lucide-svg-rs.json
           echo "      \"hash\": \"${WIN_SHA}\"," >> outpkg/scoop/lucide-svg-rs.json
           echo '      "bin": [ "lucide-svg-rs.exe" ]' >> outpkg/scoop/lucide-svg-rs.json
           echo '    }' >> outpkg/scoop/lucide-svg-rs.json
