@@ -94,21 +94,21 @@ jobs:
           find . -type f ! -name "*.sha256" ! -name "*.json" -print0 | xargs -0 -I{} sh -c 'sha256sum "{}" >> CHECKSUMS.sha256'
           cat CHECKSUMS.sha256
 
-      - name: Import GPG key (optional)
-        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
-        uses: crazy-max/ghaction-import-gpg@v6
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          git_user_signingkey: true
-          git_commit_gpgsign: true
-
-      - name: Sign checksums with GPG (optional)
-        if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
-        run: |
-          cd dist
-          gpg --batch --yes --armor --detach-sign --output CHECKSUMS.sha256.asc CHECKSUMS.sha256
-          ls -l CHECKSUMS.sha256.asc
+      # - name: Import GPG key (optional)
+      #   if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+      #   uses: crazy-max/ghaction-import-gpg@v6
+      #   with:
+      #     gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+      #     passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      #     git_user_signingkey: true
+      #     git_commit_gpgsign: true
+      #
+      # - name: Sign checksums with GPG (optional)
+      #   if: ${{ secrets.GPG_PRIVATE_KEY != '' }}
+      #   run: |
+      #     cd dist
+      #     gpg --batch --yes --armor --detach-sign --output CHECKSUMS.sha256.asc CHECKSUMS.sha256
+      #     ls -l CHECKSUMS.sha256.asc
 
       - name: Generate Homebrew formula
         shell: bash
