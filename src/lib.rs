@@ -69,9 +69,14 @@ impl LucideClient {
             let src = entry.path();
             if src.extension().map(|ext| ext == "svg").unwrap_or(false) {
                 total += 1;
-                let dst = target_dir.join(src.file_name().unwrap());
-                if fs::copy(&src, &dst).is_err() {
-                    failed.push(src.file_name().unwrap().to_string_lossy().to_string());
+                if let Some(file_name) = src.file_name() {
+                    let dst = target_dir.join(file_name);
+                    if fs::copy(&src, &dst).is_err() {
+                        failed.push(file_name.to_string_lossy().to_string());
+                    }
+                } else {
+                    // Skip files without valid filenames
+                    failed.push(format!("Invalid filename: {}", src.display()));
                 }
             }
         }
