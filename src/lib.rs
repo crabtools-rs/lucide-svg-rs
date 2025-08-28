@@ -9,6 +9,7 @@ use std::{
 pub const ICONS_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/icons");
 
 /// Offline, file-based Lucide client.
+#[derive(Debug, Default)]
 pub struct LucideClient {
     svg_dir: PathBuf,
 }
