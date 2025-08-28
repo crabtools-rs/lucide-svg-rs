@@ -55,6 +55,17 @@ impl LucideClient {
         Ok(serde_json::to_string_pretty(&self.search_icons(query)?)?)
     }
 
+    /// Get the SVG contents for a given icon name without the `.svg` extension.
+    pub fn get_icon_content(&self, name: &str) -> Result<String, Box<dyn Error>> {
+        let mut path = self.svg_dir.clone();
+        if name.ends_with(".svg") {
+            path.push(name);
+        } else {
+            path.push(format!("{name}.svg"));
+        }
+        Ok(fs::read_to_string(path)?)
+    }
+
     /// Copy all SVG files into target dir. Returns (total_found, failed_names)
     pub fn download_all_icons<P: AsRef<Path>>(
         &self,
