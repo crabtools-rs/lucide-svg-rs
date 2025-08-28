@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/crabtools-rs/lucide-svg-rs/compare/v0.1.7...v0.1.8) (2025-08-28)
+
+
+### Miscellaneous Chores
+
+* release 0.1.8 ([721e8a1](https://github.com/crabtools-rs/lucide-svg-rs/commit/721e8a1580ed7ba633cf93fa6174777e7f287c83))
+
 ## [0.1.7](https://github.com/crabtools-rs/lucide-svg-rs/compare/v0.1.6...v0.1.7) (2025-08-27)
 
 
