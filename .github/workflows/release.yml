@@ -187,7 +187,7 @@ jobs:
           ls -l outpkg/homebrew outpkg/scoop || true
 
       - name: Auto-push Homebrew formula (optional)
-        # if: secrets.GH_PAT != '' && secrets.HOMEBREW_TAP_REPO != ''
+        if: secrets.GH_PAT != '' && secrets.HOMEBREW_TAP_REPO != ''
         shell: bash
         run: |
           set -e
@@ -202,13 +202,13 @@ jobs:
           git push
 
       - name: Auto-push Scoop manifest (optional)
-        # if: secrets.GH_PAT != '' && secrets.SCOOP_BUCKET_REPO != ''
+        if: secrets.GH_PAT != '' && secrets.SCOOP_BUCKET_REPO != ''
         shell: bash
         run: |
           set -e
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          # git clone "https://${{ secrets.GH_PAT }}@github.com/${{ secrets.SCOOP_BUCKET_REPO }}.git" scooprepo
+          git clone "https://${{ secrets.GH_PAT }}@github.com/${{ secrets.SCOOP_BUCKET_REPO }}.git" scooprepo
           mkdir -p scooprepo/bucket
           cp outpkg/scoop/lucide-svg-rs.json scooprepo/bucket/lucide-svg-rs.json
           cd scooprepo
