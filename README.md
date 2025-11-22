@@ -12,7 +12,7 @@
 
 lucide-svg-rs is a Rust library + command-line tool for working with
 [Lucide](https://lucide.dev) SVG icons both online and **offline**.
-All icons are shipped in a local `icons/` directory — no network access required.
+All icons are shipped in a local `icons.tar.gz` file — no network access required.
 
 <img width="800" height="533" alt="lucide-svg-rs" src="https://github.com/user-attachments/assets/f9b3e74a-d5d7-46b7-a8fc-cd03f8949035" />
 
@@ -70,7 +70,7 @@ cargo test
 
 This covers:
 
-- Defaulting to `ICONS_DIR`
+- Defaulting to `ICONS_TAR`
 - Searching icons
 - Download/export
 - JSON output validity

@@ -7,7 +7,7 @@ This guide walks through building, testing, packaging, and distributing the **Lu
 ## 📂 Project Overview
 
 - **`lucide_svg_rs`**: Rust library + CLI for Lucide SVG icons
-- **File-based only**: ships with `icons/` directory, no network calls
+- **File-based only**: ships with `icons.tar.gz` file, no network calls
 - **Features**:
   - `list` all icons (plain text / JSON)
   - `search` icons by substring
@@ -24,10 +24,10 @@ This guide walks through building, testing, packaging, and distributing the **Lu
 ## 🛠 Library Usage
 
 ```rust
-use lucide_svg_rs::{LucideClient, ICONS_DIR};
+use lucide_svg_rs::{LucideClient, ICONS_TAR};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = LucideClient::new(ICONS_DIR)?;
+    let client = LucideClient::new(ICONS_TAR)?;
 
     // List
     let icons = client.list_icons()?;
@@ -76,7 +76,7 @@ cargo test --test cli
 
 Covers:
 
-- Defaulting to `ICONS_DIR`
+- Defaulting to `ICONS_TAR`
 - Search functionality
 - Download/export functionality
 - JSON output validity
@@ -114,7 +114,7 @@ cargo run --example search
 cargo run --example download_all ./exported-icons
 ```
 
-Examples explicitly show defaulting to `ICONS_DIR`.
+Examples explicitly show defaulting to `ICONS_TAR`.
 
 ---
 
@@ -124,8 +124,8 @@ Library doctests ensure docs compile + run:
 
 ````rust
 /// ```
-/// use lucide_svg_rs::{LucideClient, ICONS_DIR};
-/// let client = LucideClient::new(ICONS_DIR).unwrap();
+/// use lucide_svg_rs::{LucideClient, ICONS_TAR};
+/// let client = LucideClient::new(ICONS_TAR).unwrap();
 /// let icons = client.list_icons().unwrap();
 /// assert!(!icons.is_empty());
 /// ```

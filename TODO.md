@@ -1,0 +1,3 @@
+# TODO
+
+## Read from compressed tar file icons.tar.gz ✅
