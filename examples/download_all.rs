@@ -1,8 +1,8 @@
-use lucide_svg_rs::{run_cli, Cli, Commands, ICONS_DIR};
+use lucide_svg_rs::{run_cli, Cli, Commands, ICONS_TAR};
 use std::env;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Using ICONS_DIR = {ICONS_DIR}");
+    println!("Using ICONS_TAR = {ICONS_TAR}");
     let out = env::args()
         .nth(1)
         .unwrap_or_else(|| "exported-icons".into());

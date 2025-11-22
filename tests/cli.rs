@@ -1,4 +1,4 @@
-use lucide_svg_rs::{run_cli, Cli, Commands, LucideClient, ICONS_DIR};
+use lucide_svg_rs::{run_cli, Cli, Commands, LucideClient, ICONS_TAR};
 use std::fs;
 use tempfile::tempdir;
 
@@ -11,14 +11,14 @@ fn test_cli_defaults_to_icons_dir() {
     let result = run_cli(cli).unwrap();
     assert!(result.starts_with("Found "));
 
-    let client = LucideClient::new(ICONS_DIR).unwrap();
+    let client = LucideClient::new(ICONS_TAR).unwrap();
     let icons = client.list_icons().unwrap();
     assert!(!icons.is_empty());
 }
 
 #[test]
 fn test_cli_search_works_from_icons_dir() {
-    let client = LucideClient::new(ICONS_DIR).unwrap();
+    let client = LucideClient::new(ICONS_TAR).unwrap();
     let icons = client.list_icons().unwrap();
     assert!(!icons.is_empty());
     let first_icon = &icons[0];

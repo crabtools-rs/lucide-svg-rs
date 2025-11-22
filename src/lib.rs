@@ -1,36 +1,46 @@
 use clap::{Parser, Subcommand};
+use flate2::read::GzDecoder;
 use std::{
     error::Error,
     fs,
+    io::Read,
     path::{Path, PathBuf},
 };
+use tar::Archive;
 
-/// Built-in icons directory shipped with this crate
-pub const ICONS_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/icons");
+/// Built-in icons tar.gz file shipped with this crate
+pub const ICONS_TAR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/icons.tar.gz");
 
 /// Offline, file-based Lucide client.
 #[derive(Debug, Default)]
 pub struct LucideClient {
-    svg_dir: PathBuf,
+    tar_path: PathBuf,
 }
 
 impl LucideClient {
-    /// Initialize with a local directory containing `*.svg`
-    pub fn new<P: AsRef<Path>>(svg_dir: P) -> Result<Self, Box<dyn Error>> {
+    /// Initialize with a local tar.gz file containing `*.svg`
+    pub fn new<P: AsRef<Path>>(tar_path: P) -> Result<Self, Box<dyn Error>> {
         Ok(Self {
-            svg_dir: svg_dir.as_ref().to_path_buf(),
+            tar_path: tar_path.as_ref().to_path_buf(),
         })
     }
 
     /// List all icons (names without `.svg`), sorted
     pub fn list_icons(&self) -> Result<Vec<String>, Box<dyn Error>> {
+        let file = fs::File::open(&self.tar_path)?;
+        let decoder = GzDecoder::new(file);
+        let mut archive = Archive::new(decoder);
         let mut icons = Vec::new();
-        for entry in fs::read_dir(&self.svg_dir)? {
+        for entry in archive.entries()? {
             let entry = entry?;
-            let path = entry.path();
-            if path.extension().map(|ext| ext == "svg").unwrap_or(false) {
-                if let Some(stem) = path.file_stem() {
-                    icons.push(stem.to_string_lossy().to_string());
+            let path = entry.path()?;
+            if let Some(file_name) = path.file_name() {
+                if let Some(name_str) = file_name.to_str() {
+                    if name_str.ends_with(".svg") {
+                        if let Some(stem) = Path::new(name_str).file_stem() {
+                            icons.push(stem.to_string_lossy().to_string());
+                        }
+                    }
                 }
             }
         }
@@ -58,16 +68,29 @@ impl LucideClient {
 
     /// Get the SVG contents for a given icon name without the `.svg` extension.
     pub fn get_icon_content(&self, name: &str) -> Result<String, Box<dyn Error>> {
-        let mut path = self.svg_dir.clone();
-        if name.ends_with(".svg") {
-            path.push(name);
+        let file_name = if name.ends_with(".svg") {
+            name.to_string()
         } else {
-            path.push(format!("{name}.svg"));
+            format!("{name}.svg")
+        };
+        let file = fs::File::open(&self.tar_path)?;
+        let decoder = GzDecoder::new(file);
+        let mut archive = Archive::new(decoder);
+        for entry in archive.entries()? {
+            let mut entry = entry?;
+            let path = entry.path()?;
+            if let Some(entry_name) = path.file_name() {
+                if entry_name == file_name.as_str() {
+                    let mut content = String::new();
+                    entry.read_to_string(&mut content)?;
+                    return Ok(content);
+                }
+            }
         }
-        Ok(fs::read_to_string(path)?)
+        Err(format!("Icon '{}' not found", name).into())
     }
 
-    /// Copy all SVG files into target dir. Returns (total_found, failed_names)
+    /// Extract all SVG files into target dir. Returns (total_found, failed_names)
     pub fn download_all_icons<P: AsRef<Path>>(
         &self,
         target_dir: P,
@@ -75,20 +98,24 @@ impl LucideClient {
         let mut failed = Vec::new();
         let target_dir = target_dir.as_ref();
         fs::create_dir_all(target_dir)?;
+        let file = fs::File::open(&self.tar_path)?;
+        let decoder = GzDecoder::new(file);
+        let mut archive = Archive::new(decoder);
         let mut total = 0;
-        for entry in fs::read_dir(&self.svg_dir)? {
-            let entry = entry?;
-            let src = entry.path();
-            if src.extension().map(|ext| ext == "svg").unwrap_or(false) {
-                total += 1;
-                if let Some(file_name) = src.file_name() {
-                    let dst = target_dir.join(file_name);
-                    if fs::copy(&src, &dst).is_err() {
-                        failed.push(file_name.to_string_lossy().to_string());
+        for entry in archive.entries()? {
+            let mut entry = entry?;
+            let path = entry.path()?.to_path_buf();
+            if let Some(file_name) = path.file_name() {
+                if let Some(name_str) = file_name.to_str() {
+                    if name_str.ends_with(".svg") {
+                        total += 1;
+                        let dst = target_dir.join(file_name);
+                        if let Err(_) = entry.unpack(&dst) {
+                            failed.push(name_str.to_string());
+                        }
                     }
                 } else {
-                    // Skip files without valid filenames
-                    failed.push(format!("Invalid filename: {}", src.display()));
+                    failed.push(format!("Invalid filename: {}", path.display()));
                 }
             }
         }
@@ -99,9 +126,9 @@ impl LucideClient {
 /// CLI parser
 #[derive(Parser, Debug)]
 #[command(name = "lucide-svg-rs")]
-#[command(about = "Work with Lucide icons from a local directory", long_about = None)]
+#[command(about = "Work with Lucide icons from a local tar.gz file", long_about = None)]
 pub struct Cli {
-    /// Path to local SVG directory (defaults to built-in icons)
+    /// Path to local SVG tar.gz file (defaults to built-in icons.tar.gz)
     #[arg(short, long)]
     pub dir: Option<String>,
 
@@ -129,8 +156,8 @@ pub enum Commands {
 
 /// Run CLI and return printable output
 pub fn run_cli(cli: Cli) -> Result<String, Box<dyn Error>> {
-    let dir = cli.dir.clone().unwrap_or_else(|| ICONS_DIR.to_string());
-    let client = LucideClient::new(&dir)?;
+    let tar_path = cli.dir.clone().unwrap_or_else(|| ICONS_TAR.to_string());
+    let client = LucideClient::new(&tar_path)?;
     Ok(match cli.command {
         Commands::List { json } => {
             if json {
@@ -158,8 +185,8 @@ pub fn run_cli(cli: Cli) -> Result<String, Box<dyn Error>> {
 // # Examples
 //
 // ```
-// use lucide_svg_rs::{LucideClient, ICONS_DIR};
-// let client = LucideClient::new(ICONS_DIR).unwrap();
+// use lucide_svg_rs::{LucideClient, ICONS_TAR};
+// let client = LucideClient::new(ICONS_TAR).unwrap();
 // let icons = client.list_icons().unwrap();
 // assert!(!icons.is_empty());
 // ```
