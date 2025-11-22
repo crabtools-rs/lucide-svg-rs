@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    if: github.repository_owner == 'soulcorrea'  # replace OWNER with your GitHub username/org
+    if: github.repository_owner == 'crabtools-rs'  # replace OWNER with your GitHub username/org
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
