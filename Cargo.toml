@@ -8,6 +8,7 @@ repository = "https://github.com/crabtools-rs/lucide-svg-rs"
 readme = "README.md"
 keywords = ["icons", "lucide", "ui", "cli"]
 categories = ["web-programming", "gui"]
+include = ["src/**/*", "icons.tar.gz", "README.md", "LICENSE*"]
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
